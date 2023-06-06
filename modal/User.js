@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         // enum means ---> role ka space limit ho jata hai jo ab role hai vo enum ke inside jo bhi value hai unme se koi ak hoga
-        enum: ["Admin", "Student", "Visitor"]
+        enum: ["Admin", "Student", "Visitor"],
     }
 
 })

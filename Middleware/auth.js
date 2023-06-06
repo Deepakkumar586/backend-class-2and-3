@@ -9,10 +9,17 @@ require("dotenv").config();
 exports.auth = async (req, res, next) => {
     try {
         // extract jwt token-->request ki body se token ko fecth...
-        // other ways two token fetch
-        const token = req.body.token;
+        // other ways two token fetch---cookis and header jwt
 
-        if (!token) {
+        console.log("cookie", req.cookies.token);
+        console.log("body", req.body.token);
+        // console.log("header", req.header("Authroization").replace("Bearer", ""));
+
+
+
+        const token = req.body.token || req.cookies.token || req.header("Authroization").replace("Bearer", "");
+
+        if (!token || token === undefined) {
             return res.status(401).json({
                 success: true,
                 message: "Token missing"
@@ -25,7 +32,7 @@ exports.auth = async (req, res, next) => {
             console.log(payload)
 
 
-            // decode  ka jo bhi data nikl aayega use request ke sath add kar liya
+            // payload  ka jo bhi data nikl aayega use request ke sath add kar liya
             req.user = payload;
         } catch (err) {
             return res.status(401).json({
